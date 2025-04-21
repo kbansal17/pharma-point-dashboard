@@ -1,14 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import Login from "./Login";
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+  useEffect(() => {
+    // If this is the first load, clear any existing login state
+    if (!sessionStorage.getItem("appInitialized")) {
+      localStorage.removeItem("isLoggedIn");
+      sessionStorage.setItem("appInitialized", "true");
+    }
+  }, []);
+
+  // If user is logged in, redirect to dashboard
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  // Otherwise show login page
+  return <Login />;
 };
 
 export default Index;
