@@ -3,6 +3,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Package, PackageX, CalendarX, Users } from "lucide-react";
 
+// Use Indian staff and customer names and prices in rupees
 export default function Dashboard() {
   // Dashboard summary stats (would come from API in real app)
   const stats = [
@@ -30,25 +31,25 @@ export default function Dashboard() {
     {
       title: "Total Staff",
       value: "12",
-      change: "2 on leave",
+      change: "2 on leave (e.g., Dr. Priya Sharma)",
       icon: Users,
       color: "text-blue-500",
     },
     {
       title: "Today's Sales",
-      value: "$2,450",
+      value: "₹2,450",
       change: "+18% from yesterday",
       icon: FileText,
       color: "text-green-500",
     },
   ];
 
-  // Recent transactions (would come from API in real app)
+  // Recent transactions (now with Indian names)
   const recentTransactions = [
-    { id: "INV-001", customer: "John Doe", amount: "$124.00", status: "Completed", date: "Today, 2:30 PM" },
-    { id: "INV-002", customer: "Jane Smith", amount: "$82.50", status: "Completed", date: "Today, 12:10 PM" },
-    { id: "INV-003", customer: "Mike Johnson", amount: "$215.75", status: "Completed", date: "Yesterday, 5:20 PM" },
-    { id: "INV-004", customer: "Sara Williams", amount: "$45.00", status: "Completed", date: "Yesterday, 11:30 AM" },
+    { id: "INV-001", customer: "Arjun Mehta", amount: "₹124.00", status: "Completed", date: "Today, 2:30 PM" },
+    { id: "INV-002", customer: "Riya Patel", amount: "₹82.50", status: "Completed", date: "Today, 12:10 PM" },
+    { id: "INV-003", customer: "Saanvi Sharma", amount: "₹215.75", status: "Completed", date: "Yesterday, 5:20 PM" },
+    { id: "INV-004", customer: "Rahul Verma", amount: "₹45.00", status: "Completed", date: "Yesterday, 11:30 AM" },
   ];
 
   return (
