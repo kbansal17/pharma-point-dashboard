@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -175,7 +176,7 @@ export default function Billing() {
                         >
                           <span>{product.name}</span>
                           <div className="flex items-center">
-                            <span className="text-gray-500 mr-2">${product.price.toFixed(2)}</span>
+                            <span className="text-gray-500 mr-2">₹{product.price.toFixed(2)}</span>
                             <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
                               <Plus className="h-4 w-4" />
                             </Button>
@@ -201,7 +202,7 @@ export default function Billing() {
                       {cart.map((item) => (
                         <TableRow key={item.id}>
                           <TableCell>{item.name}</TableCell>
-                          <TableCell className="text-right">${item.price.toFixed(2)}</TableCell>
+                          <TableCell className="text-right">₹{item.price.toFixed(2)}</TableCell>
                           <TableCell className="text-center">
                             <div className="flex items-center justify-center">
                               <Button
@@ -224,7 +225,7 @@ export default function Billing() {
                             </div>
                           </TableCell>
                           <TableCell className="text-right">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            ₹{(item.price * item.quantity).toFixed(2)}
                           </TableCell>
                           <TableCell>
                             <Button
@@ -258,16 +259,16 @@ export default function Billing() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-500">Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>₹{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Tax (5%)</span>
-                    <span>${tax.toFixed(2)}</span>
+                    <span>₹{tax.toFixed(2)}</span>
                   </div>
                   <div className="border-t pt-2 mt-2">
                     <div className="flex justify-between font-bold">
                       <span>Total</span>
-                      <span>${total.toFixed(2)}</span>
+                      <span>₹{total.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>

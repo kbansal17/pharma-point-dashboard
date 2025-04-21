@@ -45,6 +45,66 @@ export default function NearExpiryPage() {
   thirtyDaysFromNow.setDate(currentDate.getDate() + 30);
   sixtyDaysFromNow.setDate(currentDate.getDate() + 60);
   
+  // Sample near expiry items
+  const generateNearExpiryDate = (daysFromNow: number) => {
+    const date = new Date();
+    date.setDate(date.getDate() + daysFromNow);
+    return date.toISOString().split('T')[0];
+  };
+  
+  const sampleNearExpiryItems: InventoryItem[] = [
+    {
+      id: "MED101",
+      name: "Diclofenac Sodium 50mg",
+      category: "Pain Relief",
+      manufacturer: "Zydus",
+      stock: 15,
+      price: 75.25,
+      expiryDate: generateNearExpiryDate(15), // 15 days from now
+      batchNumber: "DS5015"
+    },
+    {
+      id: "MED102",
+      name: "Pantoprazole 40mg",
+      category: "Gastrointestinal",
+      manufacturer: "Intas",
+      stock: 8,
+      price: 110.50,
+      expiryDate: generateNearExpiryDate(25), // 25 days from now
+      batchNumber: "PP4025"
+    },
+    {
+      id: "MED103",
+      name: "Cefixime 200mg",
+      category: "Antibiotics",
+      manufacturer: "Mankind",
+      stock: 12,
+      price: 135.75,
+      expiryDate: generateNearExpiryDate(30), // 30 days from now
+      batchNumber: "CF2030"
+    },
+    {
+      id: "MED104",
+      name: "Amlodipine 5mg",
+      category: "Cardiac",
+      manufacturer: "Torrent",
+      stock: 20,
+      price: 55.00,
+      expiryDate: generateNearExpiryDate(45), // 45 days from now
+      batchNumber: "AM0545"
+    },
+    {
+      id: "MED105",
+      name: "Rabeprazole 20mg",
+      category: "Gastrointestinal",
+      manufacturer: "Glenmark",
+      stock: 10,
+      price: 95.40,
+      expiryDate: generateNearExpiryDate(55), // 55 days from now
+      batchNumber: "RP2055"
+    }
+  ];
+  
   useEffect(() => {
     // Load inventory data from localStorage
     const loadData = () => {
@@ -53,26 +113,26 @@ export default function NearExpiryPage() {
       
       if (inventoryData) {
         const parsedData: InventoryItem[] = JSON.parse(inventoryData);
+        
         // Filter for near expiry items only (within 60 days)
         const nearExpiry = parsedData.filter(item => {
           const expiry = new Date(item.expiryDate);
           return expiry > currentDate && expiry < sixtyDaysFromNow;
         });
-        setNearExpiryItems(nearExpiry);
-      } else {
-        // If no data in localStorage, check for initial data
-        import("./Inventory").then((module) => {
-          // This is a bit of a hack, but we're accessing the initialInventory from the module
-          const initialInventory = (module as any).initialInventory || [];
-          const nearExpiry = initialInventory.filter((item: InventoryItem) => {
-            const expiry = new Date(item.expiryDate);
-            return expiry > currentDate && expiry < sixtyDaysFromNow;
-          });
+        
+        // If there are no near expiry items, add our sample data
+        if (nearExpiry.length === 0) {
+          // Save sample data to localStorage
+          const updatedInventory = [...parsedData, ...sampleNearExpiryItems];
+          localStorage.setItem("inventoryData", JSON.stringify(updatedInventory));
+          setNearExpiryItems(sampleNearExpiryItems);
+        } else {
           setNearExpiryItems(nearExpiry);
-        }).catch(() => {
-          // If module import fails, set empty array
-          setNearExpiryItems([]);
-        });
+        }
+      } else {
+        // If no data in localStorage, use sample near expiry items
+        localStorage.setItem("inventoryData", JSON.stringify(sampleNearExpiryItems));
+        setNearExpiryItems(sampleNearExpiryItems);
       }
       
       setIsLoading(false);

@@ -51,7 +51,7 @@ export default function BillHistory() {
           billNumber: "BILL-1234",
           date: new Date(2025, 3, 15).toISOString(),
           customer: {
-            name: "John Doe",
+            name: "Arjun Mehta",
             phone: "555-123-4567",
           },
           items: [
@@ -68,7 +68,7 @@ export default function BillHistory() {
           billNumber: "BILL-1235",
           date: new Date(2025, 3, 16).toISOString(),
           customer: {
-            name: "Jane Smith",
+            name: "Riya Patel",
             phone: "555-987-6543",
           },
           items: [
@@ -85,7 +85,7 @@ export default function BillHistory() {
           billNumber: "BILL-1236",
           date: new Date(2025, 3, 17).toISOString(),
           customer: {
-            name: "Mike Johnson",
+            name: "Saanvi Sharma",
             phone: "555-555-1212",
           },
           items: [
@@ -169,7 +169,7 @@ export default function BillHistory() {
                           <div className="text-sm text-gray-500">{bill.customer.phone}</div>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right">${bill.summary.total.toFixed(2)}</TableCell>
+                      <TableCell className="text-right">₹{bill.summary.total.toFixed(2)}</TableCell>
                       <TableCell>
                         <div className="flex justify-end gap-2">
                           <Button variant="ghost" size="sm" onClick={() => viewBill(bill)}>
@@ -213,7 +213,7 @@ export default function BillHistory() {
               <div className="border-b pb-4 mb-4">
                 <div className="flex justify-between">
                   <div>
-                    <h3 className="font-bold text-lg">PharmaPoint</h3>
+                    <h3 className="font-bold text-lg">MediTrack</h3>
                     <p className="text-gray-500">Medical Store Management</p>
                   </div>
                   <div className="text-right">
@@ -244,10 +244,10 @@ export default function BillHistory() {
                     {selectedBill.items.map((item) => (
                       <TableRow key={item.id}>
                         <TableCell>{item.name}</TableCell>
-                        <TableCell className="text-right">${item.price.toFixed(2)}</TableCell>
+                        <TableCell className="text-right">₹{item.price.toFixed(2)}</TableCell>
                         <TableCell className="text-right">{item.quantity}</TableCell>
                         <TableCell className="text-right">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ₹{(item.price * item.quantity).toFixed(2)}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -258,15 +258,15 @@ export default function BillHistory() {
               <div className="text-right">
                 <div className="flex justify-end mb-1">
                   <span className="w-24 text-gray-500">Subtotal:</span>
-                  <span className="w-20">${selectedBill.summary.subtotal.toFixed(2)}</span>
+                  <span className="w-20">₹{selectedBill.summary.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-end mb-1">
                   <span className="w-24 text-gray-500">Tax (5%):</span>
-                  <span className="w-20">${selectedBill.summary.tax.toFixed(2)}</span>
+                  <span className="w-20">₹{selectedBill.summary.tax.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-end font-bold text-lg">
                   <span className="w-24">Total:</span>
-                  <span className="w-20">${selectedBill.summary.total.toFixed(2)}</span>
+                  <span className="w-20">₹{selectedBill.summary.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>

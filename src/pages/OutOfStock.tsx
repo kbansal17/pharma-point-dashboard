@@ -36,6 +36,60 @@ export default function OutOfStockPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   
+  // Sample out of stock items
+  const sampleOutOfStockItems: InventoryItem[] = [
+    {
+      id: "MED001",
+      name: "Azithromycin 500mg",
+      category: "Antibiotics",
+      manufacturer: "Sun Pharma",
+      stock: 0,
+      price: 145.50,
+      expiryDate: "2025-12-15",
+      batchNumber: "AZ2501"
+    },
+    {
+      id: "MED002",
+      name: "Metformin 850mg",
+      category: "Diabetes",
+      manufacturer: "Cipla",
+      stock: 0,
+      price: 78.25,
+      expiryDate: "2026-03-20",
+      batchNumber: "MT8502"
+    },
+    {
+      id: "MED003",
+      name: "Montelukast 10mg",
+      category: "Respiratory",
+      manufacturer: "Dr. Reddy's",
+      stock: 0,
+      price: 120.00,
+      expiryDate: "2025-08-10",
+      batchNumber: "ML1003"
+    },
+    {
+      id: "MED004",
+      name: "Atorvastatin 20mg",
+      category: "Cardiac",
+      manufacturer: "Lupin",
+      stock: 0,
+      price: 95.75,
+      expiryDate: "2025-10-05",
+      batchNumber: "AS2004"
+    },
+    {
+      id: "MED005",
+      name: "Levothyroxine 50mcg",
+      category: "Hormones",
+      manufacturer: "Alkem",
+      stock: 0,
+      price: 65.30,
+      expiryDate: "2026-01-25",
+      batchNumber: "LT5005"
+    }
+  ];
+  
   useEffect(() => {
     // Load inventory data from localStorage
     const loadData = () => {
@@ -46,19 +100,20 @@ export default function OutOfStockPage() {
         const parsedData: InventoryItem[] = JSON.parse(inventoryData);
         // Filter for out of stock items only
         const outOfStock = parsedData.filter(item => item.stock === 0);
-        setOutOfStockItems(outOfStock);
-      } else {
-        // If no data in localStorage, check for the initial data in Inventory.tsx
-        // and filter for out of stock items
-        import("./Inventory").then((module) => {
-          // This is a bit of a hack, but we're accessing the initialInventory from the module
-          const initialInventory = (module as any).initialInventory || [];
-          const outOfStock = initialInventory.filter((item: InventoryItem) => item.stock === 0);
+        
+        // If there are no out of stock items, use our sample data
+        if (outOfStock.length === 0) {
+          // Save sample data to localStorage
+          const updatedInventory = [...parsedData, ...sampleOutOfStockItems];
+          localStorage.setItem("inventoryData", JSON.stringify(updatedInventory));
+          setOutOfStockItems(sampleOutOfStockItems);
+        } else {
           setOutOfStockItems(outOfStock);
-        }).catch(() => {
-          // If module import fails, set empty array
-          setOutOfStockItems([]);
-        });
+        }
+      } else {
+        // If no data in localStorage, use sample out of stock items
+        localStorage.setItem("inventoryData", JSON.stringify(sampleOutOfStockItems));
+        setOutOfStockItems(sampleOutOfStockItems);
       }
       
       setIsLoading(false);
