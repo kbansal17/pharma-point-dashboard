@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +20,7 @@ export default function Billing() {
   const [searchProduct, setSearchProduct] = useState("");
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  // Sample products (would come from API/database in real app)
+  // Sample products (Indian medicines, rupees)
   const products = [
     { id: "P001", name: "Paracetamol 500mg", price: 5.99 },
     { id: "P002", name: "Amoxicillin 250mg", price: 12.50 },

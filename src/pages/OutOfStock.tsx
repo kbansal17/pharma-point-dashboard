@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,7 +35,7 @@ export default function OutOfStockPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   
-  // Sample out of stock items
+  // Sample out of stock items -- Indian medicines/companies, rupees
   const sampleOutOfStockItems: InventoryItem[] = [
     {
       id: "MED001",

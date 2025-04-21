@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,13 +44,13 @@ export default function NearExpiryPage() {
   thirtyDaysFromNow.setDate(currentDate.getDate() + 30);
   sixtyDaysFromNow.setDate(currentDate.getDate() + 60);
   
-  // Sample near expiry items
+  // Sample near expiry items -- Indian medicines/companies, rupees
   const generateNearExpiryDate = (daysFromNow: number) => {
     const date = new Date();
     date.setDate(date.getDate() + daysFromNow);
     return date.toISOString().split('T')[0];
   };
-  
+
   const sampleNearExpiryItems: InventoryItem[] = [
     {
       id: "MED101",
