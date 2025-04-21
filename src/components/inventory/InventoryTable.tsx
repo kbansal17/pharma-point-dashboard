@@ -20,6 +20,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Search, FileDown, Plus, Filter, Package as PackageIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { AddMedicineForm } from "./AddMedicineForm";
 
 type InventoryItem = {
   id: string;
@@ -34,7 +35,6 @@ type InventoryItem = {
 
 interface InventoryTableProps {
   inventory: InventoryItem[];
-  onAddProduct?: () => void;
   saveData: (data: InventoryItem[]) => void;
 }
 
@@ -44,6 +44,9 @@ export function InventoryTable({ inventory, saveData }: InventoryTableProps) {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [stockFilter, setStockFilter] = useState("all");
   const { toast } = useToast();
+  
+  // Form dialog state
+  const [isAddingMedicine, setIsAddingMedicine] = useState(false);
 
   // Date helpers for expiry
   const currentDate = new Date();
@@ -55,19 +58,18 @@ export function InventoryTable({ inventory, saveData }: InventoryTableProps) {
 
   // Add product functionality
   const handleAddProduct = () => {
+    setIsAddingMedicine(true);
+  };
+  
+  // Handle form submission
+  const handleAddMedicineSubmit = (medicineData: Omit<InventoryItem, 'id'>) => {
     // Generate a new product ID (P + 3-digit number)
     const newId = `P${String(inventory.length + 1).padStart(3, '0')}`;
     
-    // Create a new product with default values
+    // Create a new product with form values
     const newProduct: InventoryItem = {
       id: newId,
-      name: "New Medicine",
-      category: "Pain Relief",
-      manufacturer: "MediPharm",
-      stock: 100,
-      price: 99.99,
-      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 year from now
-      batchNumber: `BT${Math.floor(10000 + Math.random() * 90000)}`,
+      ...medicineData
     };
     
     // Add to inventory and save
@@ -80,6 +82,9 @@ export function InventoryTable({ inventory, saveData }: InventoryTableProps) {
       description: `${newProduct.name} has been added to inventory.`,
       duration: 3000,
     });
+    
+    // Close the dialog
+    setIsAddingMedicine(false);
   };
 
   // Filtering logic
@@ -180,6 +185,15 @@ export function InventoryTable({ inventory, saveData }: InventoryTableProps) {
           </div>
         </div>
       </div>
+      
+      {/* Medicine form dialog */}
+      <AddMedicineForm 
+        open={isAddingMedicine}
+        onOpenChange={setIsAddingMedicine}
+        onSubmit={handleAddMedicineSubmit}
+        categories={categories}
+      />
+      
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
