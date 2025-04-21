@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileText, Printer, Trash2, Plus } from "lucide-react";
+import { FileText, Trash2, Plus } from "lucide-react";
 
 type CartItem = {
   id: string;
@@ -124,6 +123,7 @@ export default function Billing() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
+            {/* Customer Information Card */}
             <Card>
               <CardHeader>
                 <CardTitle>Customer Information</CardTitle>
@@ -152,6 +152,7 @@ export default function Billing() {
               </CardContent>
             </Card>
 
+            {/* Product Search and Cart */}
             <Card>
               <CardHeader>
                 <CardTitle>Products</CardTitle>
@@ -271,15 +272,12 @@ export default function Billing() {
                   </div>
                 </div>
 
-                <div className="pt-4 space-y-2">
+                <div className="pt-4">
                   <Button 
                     className="w-full bg-pharmacy-600 hover:bg-pharmacy-700"
                     onClick={generateBill}
                   >
                     <FileText className="mr-2 h-4 w-4" /> Generate Bill
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    <Printer className="mr-2 h-4 w-4" /> Print Preview
                   </Button>
                 </div>
               </CardContent>

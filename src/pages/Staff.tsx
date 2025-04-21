@@ -26,50 +26,50 @@ import {
   UserX
 } from "lucide-react";
 
-// Sample staff data
+// Updated staff data with Indian names
 const initialStaffData = [
   { 
     id: "S001", 
-    name: "Dr. Sarah Johnson", 
+    name: "Dr. Priya Sharma", 
     role: "Pharmacist", 
     phone: "555-123-4567", 
-    email: "sarah.j@pharmaclinic.com", 
+    email: "priya.s@meditrack.com", 
     status: "Active", 
     joinDate: "2022-06-15" 
   },
   { 
     id: "S002", 
-    name: "Michael Chen", 
+    name: "Rahul Verma", 
     role: "Pharmacy Technician", 
     phone: "555-987-6543", 
-    email: "michael.c@pharmaclinic.com", 
+    email: "rahul.v@meditrack.com", 
     status: "Active", 
     joinDate: "2023-02-20" 
   },
   { 
     id: "S003", 
-    name: "Emma Rodriguez", 
+    name: "Ananya Patel", 
     role: "Cashier", 
     phone: "555-456-7890", 
-    email: "emma.r@pharmaclinic.com", 
+    email: "ananya.p@meditrack.com", 
     status: "On Leave", 
     joinDate: "2023-04-10" 
   },
   { 
     id: "S004", 
-    name: "John Smith", 
+    name: "Vikram Singh", 
     role: "Inventory Manager", 
     phone: "555-789-0123", 
-    email: "john.s@pharmaclinic.com", 
+    email: "vikram.s@meditrack.com", 
     status: "Active", 
     joinDate: "2021-11-05" 
   },
   { 
     id: "S005", 
-    name: "Priya Patel", 
+    name: "Meera Reddy", 
     role: "Pharmacist", 
     phone: "555-321-6549", 
-    email: "priya.p@pharmaclinic.com", 
+    email: "meera.r@meditrack.com", 
     status: "Inactive", 
     joinDate: "2020-08-12" 
   },

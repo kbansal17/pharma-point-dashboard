@@ -20,6 +20,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="flex h-screen bg-gray-50">
       <Sidebar />
       <main className="flex-1 overflow-auto p-6">
+        <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-pharmacy-700 font-bold text-xl">
+          MediTrack
+        </div>
         {children}
       </main>
     </div>
