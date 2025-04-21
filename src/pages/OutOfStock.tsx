@@ -173,7 +173,7 @@ export default function OutOfStockPage() {
                           <TableCell className="font-medium">{item.id}</TableCell>
                           <TableCell>{item.name}</TableCell>
                           <TableCell>{item.category}</TableCell>
-                          <TableCell>${item.price.toFixed(2)}</TableCell>
+                          <TableCell>₹{item.price.toFixed(2)}</TableCell>
                           <TableCell>{formatDate(item.expiryDate)}</TableCell>
                           <TableCell>{item.manufacturer}</TableCell>
                           <TableCell>{item.batchNumber}</TableCell>

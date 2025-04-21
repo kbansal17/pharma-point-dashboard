@@ -175,7 +175,7 @@ export function InventoryTable({ inventory, onAddProduct, saveData }: InventoryT
                     <span>{getStockBadge(item.stock)}</span>
                   </div>
                 </TableCell>
-                <TableCell>${item.price.toFixed(2)}</TableCell>
+                <TableCell>₹{item.price.toFixed(2)}</TableCell>
                 <TableCell>{getExpiryStatus(item.expiryDate)}</TableCell>
                 <TableCell>{item.manufacturer}</TableCell>
                 <TableCell>{item.batchNumber}</TableCell>
