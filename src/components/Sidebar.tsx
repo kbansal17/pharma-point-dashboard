@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   LogIn, 
@@ -13,6 +13,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 type NavItem = {
   title: string;
@@ -61,9 +62,26 @@ const navItems: NavItem[] = [
 export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
+  };
+
+  const handleLogout = () => {
+    // Clear the login state
+    localStorage.removeItem("isLoggedIn");
+    
+    // Show success toast
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+      duration: 3000,
+    });
+    
+    // Navigate to login page
+    navigate("/");
   };
 
   return (
@@ -71,7 +89,7 @@ export function Sidebar() {
       <div className="flex flex-col h-full">
         <div className="p-4 border-b flex items-center justify-between">
           {!collapsed && (
-            <h2 className="text-xl font-bold text-pharmacy-600">PharmaPoint</h2>
+            <h2 className="text-xl font-bold text-pharmacy-600">MediTrack</h2>
           )}
           <Button 
             variant="ghost" 
@@ -107,10 +125,14 @@ export function Sidebar() {
         </nav>
         
         <div className="p-4 border-t">
-          <Link to="/" className="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-md">
+          <Button 
+            variant="ghost"
+            className="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-md w-full justify-start"
+            onClick={handleLogout}
+          >
             <LogIn className="h-5 w-5" />
             {!collapsed && <span className="ml-3">Logout</span>}
-          </Link>
+          </Button>
         </div>
       </div>
     </div>

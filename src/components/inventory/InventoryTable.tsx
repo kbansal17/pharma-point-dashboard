@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Search, FileDown, Plus, Filter, Package as PackageIcon } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 type InventoryItem = {
   id: string;
@@ -37,11 +38,12 @@ interface InventoryTableProps {
   saveData: (data: InventoryItem[]) => void;
 }
 
-export function InventoryTable({ inventory, onAddProduct, saveData }: InventoryTableProps) {
+export function InventoryTable({ inventory, saveData }: InventoryTableProps) {
   // Search/filter UI state
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [stockFilter, setStockFilter] = useState("all");
+  const { toast } = useToast();
 
   // Date helpers for expiry
   const currentDate = new Date();
@@ -50,6 +52,35 @@ export function InventoryTable({ inventory, onAddProduct, saveData }: InventoryT
 
   // Extract unique categories for dropdown
   const categories = [...new Set(inventory.map(item => item.category))];
+
+  // Add product functionality
+  const handleAddProduct = () => {
+    // Generate a new product ID (P + 3-digit number)
+    const newId = `P${String(inventory.length + 1).padStart(3, '0')}`;
+    
+    // Create a new product with default values
+    const newProduct: InventoryItem = {
+      id: newId,
+      name: "New Medicine",
+      category: "Pain Relief",
+      manufacturer: "MediPharm",
+      stock: 100,
+      price: 99.99,
+      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 year from now
+      batchNumber: `BT${Math.floor(10000 + Math.random() * 90000)}`,
+    };
+    
+    // Add to inventory and save
+    const updatedInventory = [...inventory, newProduct];
+    saveData(updatedInventory);
+    
+    // Show success toast
+    toast({
+      title: "Product Added",
+      description: `${newProduct.name} has been added to inventory.`,
+      duration: 3000,
+    });
+  };
 
   // Filtering logic
   const filteredInventory = inventory.filter(item => {
@@ -106,7 +137,7 @@ export function InventoryTable({ inventory, onAddProduct, saveData }: InventoryT
           <Button variant="outline">
             <FileDown className="mr-2 h-4 w-4" /> Export
           </Button>
-          <Button className="bg-pharmacy-600 hover:bg-pharmacy-700" onClick={onAddProduct}>
+          <Button className="bg-pharmacy-600 hover:bg-pharmacy-700" onClick={handleAddProduct}>
             <Plus className="mr-2 h-4 w-4" /> Add Product
           </Button>
         </div>
